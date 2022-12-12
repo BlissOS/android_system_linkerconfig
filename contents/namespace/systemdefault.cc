@@ -101,6 +101,7 @@ Namespace BuildSystemDefaultNamespace([[maybe_unused]] const Context& ctx) {
     // enforced.
     ns.AddSearchPath(product + "/${LIB}");
     ns.AddSearchPath("/vendor/${LIB}");
+    ns.AddSearchPath("/vendor/${LIB}/hw");
     ns.AddSearchPath("/odm/${LIB}");
   }
 
