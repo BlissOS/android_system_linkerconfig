@@ -109,6 +109,7 @@ Namespace BuildSystemDefaultNamespace([[maybe_unused]] const Context& ctx) {
     ns.AddSearchPath("/system/vendor/${LIB}/egl");
     ns.AddSearchPath("/vendor/${LIB}/egl");
     ns.AddSearchPath("/vendor/${LIB}/hw");
+    ns.AddSearchPath("/apex/com.android.vndk.v" + Var("VENDOR_VNDK_VERSION") + "/${LIB}");
     ns.AddSearchPath("/odm/${LIB}");
   }
 
