@@ -75,6 +75,12 @@ void SetupSystemPermittedPaths(Namespace* ns) {
       "/vendor/${LIB}",
       "/vendor/${LIB}/arm",
       "/vendor/${LIB}/arm/nb",
+      "/system/${LIB}/arm",
+      "/system/${LIB}/arm/nb",
+      "/vendor/${LIB}/arm64",
+      "/vendor/${LIB}/arm64/nb",
+      "/system/${LIB}/arm64",
+      "/system/${LIB}/arm64/nb",
   };
 
   for (const std::string& path : permitted_paths) {
@@ -111,6 +117,15 @@ Namespace BuildSystemDefaultNamespace([[maybe_unused]] const Context& ctx) {
     ns.AddSearchPath("/vendor/${LIB}/hw");
     ns.AddSearchPath("/odm/${LIB}");
   }
+
+  ns.AddSearchPath("/vendor/${LIB}/arm");
+  ns.AddSearchPath("/system/${LIB}/arm");
+  ns.AddSearchPath("/vendor/${LIB}/arm/nb");
+  ns.AddSearchPath("/system/${LIB}/arm/nb");
+  ns.AddSearchPath("/vendor/${LIB}/arm64");
+  ns.AddSearchPath("/system/${LIB}/arm64");
+  ns.AddSearchPath("/vendor/${LIB}/arm64/nb");
+  ns.AddSearchPath("/system/${LIB}/arm64/nb");
 
   if (is_fully_treblelized) {
     SetupSystemPermittedPaths(&ns);
