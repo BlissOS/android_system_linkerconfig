@@ -60,22 +60,9 @@ Namespace BuildSphalNamespace([[maybe_unused]] const Context& ctx) {
     }
   }
 
-  ns.AddPermittedPath("/vendor/${LIB}/arm");
-  ns.AddPermittedPath("/vendor/${LIB}/arm64");
-  ns.AddPermittedPath("/vendor/${LIB}/arm/nb");
-  ns.AddPermittedPath("/vendor/${LIB}/arm64/nb");
-  ns.AddPermittedPath("/system/${LIB}/arm");
-  ns.AddPermittedPath("/system/${LIB}/arm64");
-  ns.AddPermittedPath("/system/${LIB}/arm/nb");
-  ns.AddPermittedPath("/system/${LIB}/arm64/nb");
   ns.AddSearchPath("/vendor/${LIB}/arm");
+  ns.AddPermittedPath("/vendor/${LIB}/arm");
   ns.AddSearchPath("/vendor/${LIB}/arm/nb");
-  ns.AddSearchPath("/vendor/${LIB}/arm64");
-  ns.AddSearchPath("/vendor/${LIB}/arm64/nb");
-  ns.AddSearchPath("/system/${LIB}/arm");
-  ns.AddSearchPath("/system/${LIB}/arm/nb");
-  ns.AddSearchPath("/system/${LIB}/arm64");
-  ns.AddSearchPath("/system/${LIB}/arm64/nb");
   if (ctx.IsApexBinaryConfig() && !ctx.IsVndkAvailable()) {
     // If device is legacy, let Sphal libraries access to system lib path for
     // VNDK-SP libraries
