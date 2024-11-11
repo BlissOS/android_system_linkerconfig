@@ -53,22 +53,9 @@ Namespace BuildSphalNamespace([[maybe_unused]] const Context& ctx) {
   ns.AddPermittedPath("/vendor/odm/${LIB}");
   ns.AddPermittedPath("/system/vendor/${LIB}");
 
-  ns.AddPermittedPath("/vendor/${LIB}/arm");
-  ns.AddPermittedPath("/vendor/${LIB}/arm64");
-  ns.AddPermittedPath("/vendor/${LIB}/arm/nb");
-  ns.AddPermittedPath("/vendor/${LIB}/arm64/nb");
-  ns.AddPermittedPath("/system/${LIB}/arm");
-  ns.AddPermittedPath("/system/${LIB}/arm64");
-  ns.AddPermittedPath("/system/${LIB}/arm/nb");
-  ns.AddPermittedPath("/system/${LIB}/arm64/nb");
   ns.AddSearchPath("/vendor/${LIB}/arm");
+  ns.AddPermittedPath("/vendor/${LIB}/arm");
   ns.AddSearchPath("/vendor/${LIB}/arm/nb");
-  ns.AddSearchPath("/vendor/${LIB}/arm64");
-  ns.AddSearchPath("/vendor/${LIB}/arm64/nb");
-  ns.AddSearchPath("/system/${LIB}/arm");
-  ns.AddSearchPath("/system/${LIB}/arm/nb");
-  ns.AddSearchPath("/system/${LIB}/arm64");
-  ns.AddSearchPath("/system/${LIB}/arm64/nb");
   // TODO(b/326839235) Remove access to data once renderscript is deprecated.
   if (!android::linkerconfig::modules::IsVendorVndkVersionDefined()) {
     ns.AddPermittedPath("/data");
