@@ -53,9 +53,6 @@ Namespace BuildSphalNamespace([[maybe_unused]] const Context& ctx) {
   ns.AddPermittedPath("/vendor/odm/${LIB}");
   ns.AddPermittedPath("/system/vendor/${LIB}");
 
-  ns.AddSearchPath("/vendor/${LIB}/arm");
-  ns.AddPermittedPath("/vendor/${LIB}/arm");
-  ns.AddSearchPath("/vendor/${LIB}/arm/nb");
   // TODO(b/326839235) Remove access to data once renderscript is deprecated.
   if (!android::linkerconfig::modules::IsVendorVndkVersionDefined()) {
     ns.AddPermittedPath("/data");
