@@ -251,11 +251,11 @@ TEST_F(ApexTest, skip_sharedlibs_apex) {
   PrepareApex("foo", {}, {}, {});
   WriteFile("/apex/apex-info-list.xml", R"(<apex-info-list>
     <apex-info moduleName="foo"
-      preinstalledModulePath="/system/apex/foo.apex"
+      partition="SYSTEM"
       modulePath="/data/apex/active/foo.apex"
       isActive="true" />
     <apex-info moduleName="sharedlibs"
-      preinstalledModulePath="/system/apex/sharedlibs.apex"
+      partition="SYSTEM"
       modulePath="/data/apex/active/sharedlibs.apex"
       provideSharedApexLibs="true"
       isActive="true" />
@@ -278,7 +278,7 @@ TEST_F(ApexTest, public_libs_with_public_libraries_txt) {
   PrepareApex("foo", /*provide_libs=*/{"libfoo.so"}, {}, {});
   WriteFile("/apex/apex-info-list.xml", R"(<apex-info-list>
     <apex-info moduleName="foo"
-      preinstalledModulePath="/system/apex/foo.apex"
+      partition="SYSTEM"
       modulePath="/data/apex/active/foo.apex"
       isActive="true" />
   </apex-info-list>)");
@@ -293,7 +293,7 @@ TEST_F(ApexTest, public_libs_should_be_system_apex) {
   PrepareApex("foo", /*provide_libs=*/{"libfoo.so"}, {}, {});
   WriteFile("/apex/apex-info-list.xml", R"(<apex-info-list>
     <apex-info moduleName="foo"
-      preinstalledModulePath="/vendor/apex/foo.apex"
+      partition="VENDOR"
       modulePath="/data/apex/active/foo.apex"
       isActive="true" />
   </apex-info-list>)");
@@ -307,7 +307,7 @@ TEST_F(ApexTest, system_ext_can_be_linked_to_system_system_ext) {
   PrepareApex("foo", /*provide_libs=*/{"libfoo.so"}, {}, {});
   WriteFile("/apex/apex-info-list.xml", R"(<apex-info-list>
     <apex-info moduleName="foo"
-      preinstalledModulePath="/system/system_ext/apex/foo.apex"
+      partition="SYSTEM_EXT"
       modulePath="/data/apex/active/foo.apex"
       isActive="true" />
   </apex-info-list>)");

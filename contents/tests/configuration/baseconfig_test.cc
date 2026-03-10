@@ -105,7 +105,7 @@ TEST(linkerconfig_configuration_fulltest,
                               true,
                               true,
                               false);
-  vendor_apex.original_path = "/vendor/apex/com.android.vendor";
+  vendor_apex.partition = "VENDOR";
   ctx.SetApexModules({vendor_apex,
                       // To generate vendor section
                       ApexInfo("com.android.vndk.v",

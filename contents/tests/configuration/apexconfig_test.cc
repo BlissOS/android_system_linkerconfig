@@ -92,7 +92,7 @@ TEST_F(ApexConfigTest, vndk_in_system_vendor_apex) {
 
   auto vendor_apex =
       PrepareApex("vendor_apex", {}, {":vndk", "libvendorprovide.so"});
-  vendor_apex.original_path = "/vendor/apex/com.android.vendor";
+  vendor_apex.partition = "VENDOR";
   ctx.SetApexModules({vendor_apex, CreateTestVndkApex()});
   auto config = android::linkerconfig::contents::CreateApexConfiguration(
       ctx, vendor_apex);
@@ -113,7 +113,7 @@ TEST_F(ApexConfigTest, vndk_in_system_product_apex) {
 
   auto product_apex =
       PrepareApex("product_apex", {}, {":vndksp", "libproductprovide.so"});
-  product_apex.original_path = "/product/apex/com.android.product";
+  product_apex.partition = "PRODUCT";
   ctx.SetApexModules({product_apex, CreateTestVndkApex()});
   auto config = android::linkerconfig::contents::CreateApexConfiguration(
       ctx, product_apex);
@@ -135,7 +135,7 @@ TEST_F(ApexConfigTest, vendor_apex_without_use_vndk_as_stable) {
   // Vendor apex requires :vndk
   auto vendor_apex = PrepareApex(
       "com.android.vendor", {"libapexprovide.so"}, {"libvendorprovide.so"});
-  vendor_apex.original_path = "/vendor/apex/com.android.vendor";
+  vendor_apex.partition = "VENDOR";
   ctx.SetApexModules({vendor_apex, CreateTestVndkApex()});
 
   auto config = CreateApexConfiguration(ctx, vendor_apex);

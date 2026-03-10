@@ -121,7 +121,7 @@ for partition in system product system_ext vendor odm; do
       if [ $(get_level $name) -le $activate_level ]; then
         # simulate "activation" by copying "apex dir" into /apex
         cp -r $src $dst
-        echo " <apex-info moduleName=\"$name\" modulePath=\"$module_path\" preinstalledModulePath=\"$module_path\" isFactory=\"true\" isActive=\"true\" />" >> $apexInfo
+        echo " <apex-info moduleName=\"$name\" modulePath=\"$module_path\" partition=\"${partition^^}\" isFactory=\"true\" isActive=\"true\" />" >> $apexInfo
       fi
     done
   fi

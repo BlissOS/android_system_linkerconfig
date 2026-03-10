@@ -85,9 +85,10 @@ android::linkerconfig::modules::Configuration CreateBaseConfiguration(
       {"/data/local/tmp", "unrestricted"},
 
       {"/postinstall", "postinstall"},
-      // Fallback entry to provide APEX namespace lookups for binaries anywhere
-      // else. This must be last.
+      // Fallback entries to provide APEX namespace lookups for binaries
+      // anywhere else. These must be last.
       {"/data", "system"},
+      {"/tmp", "system"},
       // TODO(b/168556887): Remove this when we have a dedicated section for
       // binaries in APKs
       {Var("PRODUCT") + "/app/", "system"},

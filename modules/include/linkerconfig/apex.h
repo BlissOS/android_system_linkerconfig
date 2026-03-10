@@ -29,7 +29,7 @@ struct ApexInfo {
   std::string name;
   std::string namespace_name;
   std::string path;
-  std::string original_path;
+  std::string partition;
   std::vector<std::string> provide_libs;
   std::vector<std::string> require_libs;
   std::vector<std::string> jni_libs;

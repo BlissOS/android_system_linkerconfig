@@ -22,6 +22,7 @@ dir.vendor = /data/local/tests/vendor
 dir.unrestricted = /data/local/tmp
 dir.postinstall = /postinstall
 dir.system = /data
+dir.system = /tmp
 dir.system = /product/app/
 [system]
 additional.namespaces = com_android_adbd,com_android_art,com_android_conscrypt,com_android_i18n,com_android_media,com_android_neuralnetworks,com_android_os_statsd,com_android_resolv,com_android_runtime,com_android_systemext1,com_product_service1,com_vendor_service3,product,rs,sphal

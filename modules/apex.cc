@@ -219,26 +219,7 @@ Result<std::map<std::string, ApexInfo>> ScanActiveApexes(const std::string& root
         if (info.getProvideSharedApexLibs()) {
           continue;
         }
-        // Get the pre-installed path of the apex. Normally (i.e. in Android),
-        // failing to find the pre-installed path is an assertion failure
-        // because apexd demands that every apex to have a pre-installed one.
-        // However, when this runs in a VM where apexes are seen as virtio block
-        // devices, the situation is different. If the APEX in the host side is
-        // an updated (or staged) one, the block device representing the APEX on
-        // the VM side doesn't have the pre-installed path because the factory
-        // version of the APEX wasn't exported to the VM. Therefore, we use the
-        // module path as original_path when we are running in a VM which can be
-        // guessed by checking if the path is /dev/block/vdN.
-        std::string path;
-        if (info.hasPreinstalledModulePath()) {
-          path = info.getPreinstalledModulePath();
-        } else if (StartsWith(info.getModulePath(), "/dev/block/vd")) {
-          path = info.getModulePath();
-        } else {
-          return Error() << "Failed to determine original path for apex "
-                         << info.getModuleName() << " at " << info_list_file;
-        }
-        apexes[info.getModuleName()].original_path = std::move(path);
+        apexes[info.getModuleName()].partition = std::move(info.getPartition());
       }
     } else {
       return ErrnoError() << "Can't read " << info_list_file;
@@ -267,23 +248,15 @@ Result<std::map<std::string, ApexInfo>> ScanActiveApexes(const std::string& root
 
 bool ApexInfo::InSystem() const {
   // /system partition
-  if (StartsWith(original_path, "/system/apex/")) {
+  if (partition.compare("SYSTEM") == 0) {
     return true;
   }
   // /system_ext partition
-  if (StartsWith(original_path, "/system_ext/apex/") ||
-      StartsWith(original_path, "/system/system_ext/apex/")) {
+  if (partition.compare("SYSTEM_EXT") == 0) {
     return true;
   }
   // /product partition if it's not separated from "system"
-  if (!IsTreblelizedDevice()) {
-    if (StartsWith(original_path, "/product/apex/") ||
-        StartsWith(original_path, "/system/product/apex/")) {
-      return true;
-    }
-  }
-  // Guest mode Android may have system APEXes from host via block APEXes
-  if (StartsWith(original_path, "/dev/block/vd")) {
+  if (!IsTreblelizedDevice() && partition.compare("PRODUCT") == 0) {
     return true;
   }
   return false;
@@ -292,8 +265,7 @@ bool ApexInfo::InSystem() const {
 bool ApexInfo::InProduct() const {
   // /product partition if it's separated from "system"
   if (IsTreblelizedDevice()) {
-    if (StartsWith(original_path, "/product/apex/") ||
-        StartsWith(original_path, "/system/product/apex/")) {
+    if (partition.compare("PRODUCT") == 0) {
       return true;
     }
   }
@@ -302,11 +274,7 @@ bool ApexInfo::InProduct() const {
 
 bool ApexInfo::InVendor() const {
   // /vendor and /odm partition
-  if (StartsWith(original_path, "/vendor/apex/") ||
-      StartsWith(original_path, "/system/vendor/apex/") ||
-      StartsWith(original_path, "/odm/apex/") ||
-      StartsWith(original_path, "/vendor/odm/apex/") ||
-      StartsWith(original_path, "/system/vendor/odm/apex/")) {
+  if (partition.compare("VENDOR") == 0 || partition.compare("ODM") == 0) {
     return true;
   }
   return false;
